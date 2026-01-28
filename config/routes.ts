@@ -1,4 +1,7 @@
-﻿export default [
+﻿import component from "@/locales/en-US/component";
+import path from "path";
+
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -36,6 +39,28 @@
 		component: './RandomUser',
 		icon: 'ArrowsAltOutlined',
 	},
+	{
+		path: '/doan-so',
+		name: 'GuestNumber',
+		component: './GuestNumber',
+		icon: 'AndroidOutlined'
+	},
+	{
+		path: '/todolist',
+		name: 'Todolist',
+		component: './Todolist',
+		icon: 'UnorderedListOutlined'
+	},
+
+
+
+
+
+
+
+
+
+
 
 	// DANH MUC HE THONG
 	// {
