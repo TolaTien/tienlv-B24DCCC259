@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Select, Input, InputNumber, Space, Card, Typography, message, Table, Modal } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-// Thêm Difficulty vào danh sách import
 import { Exam, Subject, KnowledgeBlock, Question, Difficulty, DifficultyLabels } from '../../models/Question';
 
 const { Option } = Select;
@@ -15,7 +14,6 @@ const ExamManagementPage: React.FC = () => {
   });
   const [viewExamModal, setViewExamModal] = useState<Exam | null>(null);
 
-  // Load data từ LocalStorage
   const subjects: Subject[] = JSON.parse(localStorage.getItem('subjects_data') || '[]');
   const knowledgeBlocks: KnowledgeBlock[] = JSON.parse(localStorage.getItem('knowledge_blocks_data') || '[]');
   const questionsBank: Question[] = JSON.parse(localStorage.getItem('questions_data') || '[]');
@@ -24,29 +22,24 @@ const ExamManagementPage: React.FC = () => {
     localStorage.setItem('exams_data', JSON.stringify(exams));
   }, [exams]);
 
-  // Thuật toán Sinh đề thi
   const handleGenerateExam = (values: any) => {
     let generatedQuestions: Question[] = [];
     
-    // Duyệt qua từng yêu cầu cấu trúc đề
     for (const rule of values.structure) {
       if (!rule || !rule.knowledgeBlockId || !rule.difficulty || !rule.quantity) continue;
 
-      // Lọc ngân hàng câu hỏi theo Môn, Khối KT, Mức độ
       const availableQs = questionsBank.filter(q => 
         q.subjectId === values.subjectId && 
         q.knowledgeBlockId === rule.knowledgeBlockId && 
         q.difficulty === rule.difficulty
       );
 
-      // Kiểm tra có đủ câu hỏi không
       if (availableQs.length < rule.quantity) {
         const blockName = knowledgeBlocks.find(k => k.id === rule.knowledgeBlockId)?.name;
-        message.error(`Không đủ câu hỏi: Yêu cầu ${rule.quantity} câu  ${DifficultyLabels[rule.difficulty as Difficulty ]} thuộc phần "${blockName}". Trong kho chỉ có ${availableQs.length} câu.`);
-        return; // Dừng việc tạo đề
+        message.error(`Không đủ câu hỏi: Yêu cầu ${rule.quantity} câu ${DifficultyLabels[rule.difficulty as Difficulty]} thuộc phần "${blockName}". Trong kho chỉ có ${availableQs.length} câu.`);
+        return; 
       }
 
-      // Xáo trộn mảng ngẫu nhiên và bốc đủ số lượng yêu cầu
       const shuffled = [...availableQs].sort(() => 0.5 - Math.random());
       generatedQuestions = [...generatedQuestions, ...shuffled.slice(0, rule.quantity)];
     }
@@ -56,7 +49,6 @@ const ExamManagementPage: React.FC = () => {
       return;
     }
 
-    // Lưu đề thi thành công
     const newExam: Exam = {
       id: `EXAM_${Date.now()}`,
       title: values.title,
@@ -75,7 +67,6 @@ const ExamManagementPage: React.FC = () => {
     <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
       <Title level={2}>Quản Lý & Tạo Đề Thi</Title>
       
-      {/* KHU VỰC TẠO ĐỀ THI */}
       <Card title="Thiết lập cấu trúc đề" style={{ marginBottom: 24 }}>
         <Form form={form} layout="vertical" onFinish={handleGenerateExam}>
           <Form.Item name="title" label="Tên đề thi" rules={[{ required: true }]}><Input /></Form.Item>
@@ -115,7 +106,6 @@ const ExamManagementPage: React.FC = () => {
         </Form>
       </Card>
 
-      {/* KHU VỰC DANH SÁCH ĐỀ THI ĐÃ TẠO */}
       <Title level={4}>Danh sách đề thi đã lưu</Title>
       <Table 
         dataSource={exams} 
@@ -129,13 +119,12 @@ const ExamManagementPage: React.FC = () => {
         ]} 
       />
 
-      {/* MODAL XEM CHI TIẾT ĐỀ THI */}
       <Modal title={viewExamModal?.title} visible={!!viewExamModal} onCancel={() => setViewExamModal(null)} width={800} footer={null}>
         {viewExamModal?.questions.map((q, idx) => (
           <div key={idx} style={{ marginBottom: 16, paddingBottom: 16, borderBottom: '1px solid #f0f0f0' }}>
             <b>Câu {idx + 1}:</b> {q.content}
             <div style={{ fontSize: 12, color: 'gray', marginTop: 4 }}>
-              [Mức độ: {DifficultyLabels[q.difficulty]}] - [Khối: {knowledgeBlocks.find(k => k.id === q.knowledgeBlockId)?.name}]
+              [Mức độ: {DifficultyLabels[q.difficulty as Difficulty]}] - [Khối: {knowledgeBlocks.find(k => k.id === q.knowledgeBlockId)?.name}]
             </div>
           </div>
         ))}
