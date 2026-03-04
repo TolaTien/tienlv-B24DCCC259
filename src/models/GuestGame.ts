@@ -10,10 +10,6 @@ export const GuestGame = () => {
   // sinh số ngẫu nhiên từ 1 đến 100
   const generateNumber = () => Math.floor(Math.random() * 100) + 1;
   
-  useEffect(() => {
-    resetGame();
-  }, []);
-
   const resetGame = () => {
     setTargetNumber(generateNumber());
     setAttemptsLeft(10);
@@ -21,6 +17,10 @@ export const GuestGame = () => {
     setIsGameOver(false);
     setIsVictory(false);
   };
+
+  useEffect(() => {
+    resetGame();
+  }, []);
 
   const handleGuess = (guess: number) => {
     if (isGameOver) return;
