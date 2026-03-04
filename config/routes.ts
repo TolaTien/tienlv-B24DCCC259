@@ -51,7 +51,41 @@ export default [
 		component: './Todolist',
 		icon: 'UnorderedListOutlined'
 	},
-
+	// {
+	// 	path: '/Game',
+	// 	name: 'Game',
+	// },
+{
+        name: 'Quản lý Ngân hàng',
+        path: '/bai-2',
+        icon: 'DatabaseOutlined',
+        routes: [
+            {
+                path: '/bai-2',
+                redirect: '/bai-2/questions', 
+            },
+            {
+                name: 'Khối kiến thức',
+                path: '/bai-2/knowledge-blocks',
+                component: './KnowledgeBlockPage',
+            },
+            {
+                name: 'Danh mục Môn học',
+                path: '/bai-2/subjects',
+                component: './SubjectManagementPage',
+            },
+            {
+                name: 'Quản lý Câu hỏi',
+                path: '/bai-2/questions',
+                component: './QuestionManagement',
+            },
+            {
+                name: 'Quản lý Đề thi',
+                path: '/bai-2/exams',
+                component: './ExamManagementPage',
+            },
+        ],
+    },
 
 
 
