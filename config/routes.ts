@@ -46,6 +46,12 @@ export default [
 		icon: 'AndroidOutlined'
 	},
 	{
+		path: '/keo-bua-bao',
+		name: 'KeoBuabao',
+		component: './KeoBuaBao',
+		icon: 'ScissorOutlined'
+	},
+	{
 		path: '/todolist',
 		name: 'Todolist',
 		component: './Todolist',
