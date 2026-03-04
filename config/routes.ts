@@ -1,7 +1,4 @@
-﻿import component from "@/locales/en-US/component";
-import path from "path";
-
-export default [
+﻿export default [
 	{
 		path: '/user',
 		layout: false,
@@ -19,7 +16,6 @@ export default [
 		],
 	},
 
-	///////////////////////////////////
 	// DEFAULT MENU
 	{
 		path: '/dashboard',
@@ -43,54 +39,36 @@ export default [
 		path: '/doan-so',
 		name: 'GuestNumber',
 		component: './GuestNumber',
-		icon: 'AndroidOutlined'
+		icon: 'AndroidOutlined',
 	},
 	{
 		path: '/todolist',
 		name: 'Todolist',
 		component: './Todolist',
-		icon: 'UnorderedListOutlined'
+		icon: 'UnorderedListOutlined',
 	},
-
-
-
-
-
-
-
-
-
-
-
-	// DANH MUC HE THONG
-	// {
-	// 	name: 'DanhMuc',
-	// 	path: '/danh-muc',
-	// 	icon: 'copy',
-	// 	routes: [
-	// 		{
-	// 			name: 'ChucVu',
-	// 			path: 'chuc-vu',
-	// 			component: './DanhMuc/ChucVu',
-	// 		},
-	// 	],
-	// },
+	{
+		path: '/people24',
+		name: 'People24',
+		component: './People24',
+		icon: 'UserOutlined',
+	},
 
 	{
 		path: '/notification',
 		routes: [
 			{
-				path: './subscribe',
+				path: '/notification/subscribe',
 				exact: true,
 				component: './ThongBao/Subscribe',
 			},
 			{
-				path: './check',
+				path: '/notification/check',
 				exact: true,
 				component: './ThongBao/Check',
 			},
 			{
-				path: './',
+				path: '/notification',
 				exact: true,
 				component: './ThongBao/NotifOneSignal',
 			},
@@ -98,8 +76,10 @@ export default [
 		layout: false,
 		hideInMenu: true,
 	},
+
 	{
 		path: '/',
+		redirect: '/dashboard',
 	},
 	{
 		path: '/403',
