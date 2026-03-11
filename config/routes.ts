@@ -1,4 +1,7 @@
-﻿export default [
+﻿import component from '@/locales/en-US/component';
+import path from 'path';
+
+export default [
 	{
 		path: '/user',
 		layout: false,
@@ -16,6 +19,7 @@
 		],
 	},
 
+	///////////////////////////////////
 	// DEFAULT MENU
 	{
 		path: '/dashboard',
@@ -53,11 +57,76 @@
 		component: './Todolist',
 		icon: 'UnorderedListOutlined',
 	},
+	// {
+	// 	path: '/Game',
+	// 	name: 'Game',
+	// },
 	{
-		path: '/people24',
-		name: 'People24',
-		component: './People24',
-		icon: 'UserOutlined',
+		name: 'Quản lý Ngân hàng',
+		path: '/bai-2',
+		icon: 'DatabaseOutlined',
+		routes: [
+			{
+				path: '/bai-2',
+				redirect: '/bai-2/questions',
+			},
+			{
+				name: 'Khối kiến thức',
+				path: '/bai-2/knowledge-blocks',
+				component: './KnowledgeBlockPage',
+			},
+			{
+				name: 'Danh mục Môn học',
+				path: '/bai-2/subjects',
+				component: './SubjectManagementPage',
+			},
+			{
+				name: 'Quản lý Câu hỏi',
+				path: '/bai-2/questions',
+				component: './QuestionManagement',
+			},
+			{
+				name: 'Quản lý Đề thi',
+				path: '/bai-2/exams',
+				component: './ExamManagementPage',
+			},
+		],
+	},
+	{
+		name: 'Hệ thống Đặt lịch',
+		path: '/dat-lich',
+		icon: 'ScheduleOutlined',
+		routes: [
+			{
+				path: '/dat-lich',
+				// redirect: '/dat-lich/lich-hen',
+			},
+			{
+				name: 'Thống kê & Báo cáo',
+				path: '/dat-lich/thong-ke',
+				// component: './Dashboard/ThongKePage',
+			},
+			{
+				name: 'Quản lý Dịch vụ',
+				path: '/dat-lich/dich-vu',
+				// component: './Catalog/DichVuPage',
+			},
+			{
+				name: 'Quản lý Nhân viên',
+				path: '/dat-lich/nhan-vien',
+				// component: './Catalog/NhanVienPage',
+			},
+			{
+				name: 'Quản lý Lịch hẹn',
+				path: '/dat-lich/lich-hen',
+				// component: './Appointments/LichHenPage',
+			},
+			{
+				name: 'Đánh giá & Phản hồi',
+				path: '/dat-lich/danh-gia',
+				component: './Review/DanhGiaPage',
+			},
+		],
 	},
 
 	// DANH MUC HE THONG
@@ -78,17 +147,17 @@
 		path: '/notification',
 		routes: [
 			{
-				path: '/notification/subscribe',
+				path: './subscribe',
 				exact: true,
 				component: './ThongBao/Subscribe',
 			},
 			{
-				path: '/notification/check',
+				path: './check',
 				exact: true,
 				component: './ThongBao/Check',
 			},
 			{
-				path: '/notification',
+				path: './',
 				exact: true,
 				component: './ThongBao/NotifOneSignal',
 			},
@@ -96,10 +165,8 @@
 		layout: false,
 		hideInMenu: true,
 	},
-
 	{
 		path: '/',
-		redirect: '/dashboard',
 	},
 	{
 		path: '/403',
