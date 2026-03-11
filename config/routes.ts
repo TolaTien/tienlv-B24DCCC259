@@ -99,22 +99,23 @@ export default [
     routes: [
         {
             path: '/dat-lich',
-            // redirect: '/dat-lich/lich-hen', 
+            redirect: '/dat-lich/lich-hen', 
         },
-        {
-            name: 'Thống kê & Báo cáo',
-            path: '/dat-lich/thong-ke',
-            // component: './Dashboard/ThongKePage',
-        },
+        // config/routes.ts
+		{
+		name: 'Thống kê & Báo cáo',
+		path: '/dat-lich/thong-ke',
+		component: './HeThongDatLich/pages/DashBoard/ThongKePage', 
+		},
         {
             name: 'Quản lý Dịch vụ',
             path: '/dat-lich/dich-vu',
-            // component: './Catalog/DichVuPage',
+            component: './Nhanvienvadichvu/DichVuPage',
         },
         {
             name: 'Quản lý Nhân viên',
             path: '/dat-lich/nhan-vien',
-            // component: './Catalog/NhanVienPage',
+            component: './Nhanvienvadichvu/NhanVienPage',
         },
         {
             name: 'Quản lý Lịch hẹn',
