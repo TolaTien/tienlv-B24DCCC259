@@ -94,6 +94,42 @@ export default [
             },
         ],
     },
+{
+    name: 'Hệ thống Đặt lịch',
+    path: '/dat-lich',
+    icon: 'ScheduleOutlined',
+    routes: [
+        {
+            path: '/dat-lich',
+            // redirect: '/dat-lich/lich-hen', 
+        },
+        {
+            name: 'Thống kê & Báo cáo',
+            path: '/dat-lich/thong-ke',
+            // component: './Dashboard/ThongKePage',
+        },
+        {
+            name: 'Quản lý Dịch vụ',
+            path: '/dat-lich/dich-vu',
+            // component: './Catalog/DichVuPage',
+        },
+        {
+            name: 'Quản lý Nhân viên',
+            path: '/dat-lich/nhan-vien',
+            // component: './Catalog/NhanVienPage',
+        },
+        {
+            name: 'Quản lý Lịch hẹn',
+            path: '/dat-lich/lich-hen',
+            // component: './Appointments/LichHenPage',
+        },
+        {
+            name: 'Đánh giá & Phản hồi',
+            path: '/dat-lich/danh-gia',
+            // component: './Reviews/DanhGiaPage',
+        },
+    ],
+},
 
 
 
