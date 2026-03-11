@@ -42,6 +42,12 @@
 		icon: 'AndroidOutlined',
 	},
 	{
+		path: '/keo-bua-bao',
+		name: 'KeoBuabao',
+		component: './KeoBuaBao',
+		icon: 'ScissorOutlined',
+	},
+	{
 		path: '/todolist',
 		name: 'Todolist',
 		component: './Todolist',
@@ -53,6 +59,20 @@
 		component: './People24',
 		icon: 'UserOutlined',
 	},
+
+	// DANH MUC HE THONG
+	// {
+	// 	name: 'DanhMuc',
+	// 	path: '/danh-muc',
+	// 	icon: 'copy',
+	// 	routes: [
+	// 		{
+	// 			name: 'ChucVu',
+	// 			path: 'chuc-vu',
+	// 			component: './DanhMuc/ChucVu',
+	// 		},
+	// 	],
+	// },
 
 	{
 		path: '/notification',
