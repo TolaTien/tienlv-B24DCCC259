@@ -4,7 +4,6 @@ import { message } from "antd";
 const STORAGE_KEY = "appointment_list";
 
 export default function useAppointmentModel() {
-
   const [appointments, setAppointments] = useState<any[]>([]);
 
   // Load dữ liệu từ localStorage khi mở web
@@ -22,12 +21,11 @@ export default function useAppointmentModel() {
 
   // Thêm lịch
   const addAppointment = (data: any) => {
-
     const isDuplicate = appointments.find(
       (a) =>
         a.date === data.date &&
         a.time === data.time &&
-        a.employee === data.employee
+        a.employeeId === data.employeeId // Cập nhật: check trùng theo employeeId
     );
 
     if (isDuplicate) {
@@ -50,22 +48,16 @@ export default function useAppointmentModel() {
 
   // Cập nhật trạng thái
   const updateStatus = (id: number, status: string) => {
-
     const newData = appointments.map((a) =>
       a.id === id ? { ...a, status } : a
     );
-
     setAppointments(newData);
     saveLocal(newData);
   };
 
   // Xóa lịch
   const deleteAppointment = (id: number) => {
-
-    const newData = appointments.filter(
-      (a) => a.id !== id
-    );
-
+    const newData = appointments.filter((a) => a.id !== id);
     setAppointments(newData);
     saveLocal(newData);
   };

@@ -103,11 +103,12 @@ export default [
             path: '/dat-lich',
             redirect: '/dat-lich/lich-hen', 
         },
-        {
-            name: 'Thống kê & Báo cáo',
-            path: '/dat-lich/thong-ke',
-            // component: './Dashboard/ThongKePage',
-        },
+        
+		{
+		name: 'Thống kê & Báo cáo',
+		path: '/dat-lich/thong-ke',
+		component: './HeThongDatLich/pages/DashBoard/ThongKePage', 
+		},
         {
             name: 'Quản lý Dịch vụ',
             path: '/dat-lich/dich-vu',
