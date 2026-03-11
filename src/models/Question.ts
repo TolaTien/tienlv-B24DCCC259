@@ -1,4 +1,3 @@
-// src/models/types.ts
 export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD' | 'VERY_HARD';
 
 export const DifficultyLabels: Record<Difficulty, string> = {
