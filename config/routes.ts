@@ -1,5 +1,7 @@
 ﻿import component from "@/locales/en-US/component";
+import route from "mock/route";
 import path from "path";
+import { Redirect } from "react-router";
 
 export default [
 	{
@@ -92,6 +94,7 @@ export default [
             },
         ],
     },
+
 
 
 
