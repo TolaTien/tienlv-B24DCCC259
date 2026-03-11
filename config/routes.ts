@@ -101,7 +101,7 @@ export default [
     routes: [
         {
             path: '/dat-lich',
-            // redirect: '/dat-lich/lich-hen', 
+            redirect: '/dat-lich/lich-hen', 
         },
         {
             name: 'Thống kê & Báo cáo',
@@ -118,11 +118,11 @@ export default [
             path: '/dat-lich/nhan-vien',
             // component: './Catalog/NhanVienPage',
         },
-        {
-            name: 'Quản lý Lịch hẹn',
-            path: '/dat-lich/lich-hen',
-            // component: './Appointments/LichHenPage',
-        },
+{
+    name: 'Quản lý Lịch hẹn',
+    path: '/dat-lich/lich-hen',
+    component: './appointments',
+},
         {
             name: 'Đánh giá & Phản hồi',
             path: '/dat-lich/danh-gia',
