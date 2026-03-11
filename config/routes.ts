@@ -45,19 +45,19 @@ export default [
 		path: '/doan-so',
 		name: 'GuestNumber',
 		component: './GuestNumber',
-		icon: 'AndroidOutlined'
+		icon: 'AndroidOutlined',
 	},
 	{
 		path: '/keo-bua-bao',
 		name: 'KeoBuabao',
 		component: './KeoBuaBao',
-		icon: 'ScissorOutlined'
+		icon: 'ScissorOutlined',
 	},
 	{
 		path: '/todolist',
 		name: 'Todolist',
 		component: './Todolist',
-		icon: 'UnorderedListOutlined'
+		icon: 'UnorderedListOutlined',
 	},
 	// {
 	// 	path: '/Game',
@@ -126,7 +126,7 @@ export default [
         {
             name: 'Đánh giá & Phản hồi',
             path: '/dat-lich/danh-gia',
-            // component: './Reviews/DanhGiaPage',
+            component: './Review/DanhGiaPage',
         },
     ],
 },
