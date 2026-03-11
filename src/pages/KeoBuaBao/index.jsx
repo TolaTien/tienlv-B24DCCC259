@@ -4,9 +4,9 @@ import { Card, Button, Row, Col, Statistic, Typography, Tag } from "antd";
 const { Title } = Typography;
 
 const choices = [
-  { label: "Kéo", icon: "✂️" },
-  { label: "Búa", icon: "🔨" },
-  { label: "Bao", icon: "📄" },
+  { label: "Kéo" },
+  { label: "Búa" },
+  { label: "Bao" },
 ];
 
 export default function KeoBuaBao() {

@@ -1,5 +1,7 @@
 ﻿import component from "@/locales/en-US/component";
+import route from "mock/route";
 import path from "path";
+import { Redirect } from "react-router";
 
 export default [
 	{
@@ -117,11 +119,11 @@ export default [
             path: '/dat-lich/nhan-vien',
             component: './Nhanvienvadichvu/NhanVienPage',
         },
-        {
-            name: 'Quản lý Lịch hẹn',
-            path: '/dat-lich/lich-hen',
-            // component: './Appointments/LichHenPage',
-        },
+{
+    name: 'Quản lý Lịch hẹn',
+    path: '/dat-lich/lich-hen',
+    component: './appointments',
+},
         {
             name: 'Đánh giá & Phản hồi',
             path: '/dat-lich/danh-gia',
@@ -129,6 +131,7 @@ export default [
         },
     ],
 },
+
 
 
 
