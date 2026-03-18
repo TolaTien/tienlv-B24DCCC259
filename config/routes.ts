@@ -131,6 +131,38 @@ export default [
         },
     ],
 },
+{
+    path: '/quan-ly-van-bang',
+    name: 'Quản lý văn bằng',
+    icon: 'book',
+    routes: [
+      {
+        path: '/quan-ly-van-bang/so-van-bang',
+        name: 'Sổ văn bằng',
+        component: './QuanLyVanBang/SoVanBang',
+      },
+      {
+        path: '/quan-ly-van-bang/quyet-dinh',
+        name: 'Quyết định tốt nghiệp',
+        component: './QuanLyVanBang/QuyetDinh',
+      },
+      {
+        path: '/quan-ly-van-bang/cau-hinh-bieu-mau',
+        name: 'Cấu hình biểu mẫu',
+        component: './QuanLyVanBang/CauHinhBieuMau',
+      },
+      {
+        path: '/quan-ly-van-bang/thong-tin',
+        name: 'Thông tin văn bằng',
+        component: './QuanLyVanBang/ThongTinVanBang',
+      },
+      {
+        path: '/quan-ly-van-bang/tra-cuu', // Đã chuyển vào trong Quản lý
+        name: 'Tra cứu văn bằng',
+        component: './TraCuuVanBang',
+      },
+    ],
+  },
 
 
 
