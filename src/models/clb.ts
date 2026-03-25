@@ -22,7 +22,7 @@ const defaultData: IClub[] = [
     foundedDate: '2023-01-01',
     active: true,
     createdAt: '2023-01-01',
-    avatar: '',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=CLBGuitar',
     memberCount: 5,
   },
   {
@@ -33,12 +33,12 @@ const defaultData: IClub[] = [
     foundedDate: '2023-02-15',
     active: true,
     createdAt: '2023-02-15',
-    avatar: '',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=CLBLapTrinh',
     memberCount: 12,
   },
 ];
 
-// Load initial data from localStorage or use default
+
 const loadInitialData = (): IClub[] => {
   const savedData = loadFromStorage<IClub>(STORAGE_KEYS.CLUBS);
   return savedData || defaultData;

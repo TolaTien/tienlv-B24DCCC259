@@ -28,9 +28,37 @@ const defaultData: IMember[] = [
     status: 'Active',
     createdAt: '2023-01-15',
   },
+  {
+    id: '2',
+    fullName: 'Trần Thị B',
+    email: 'tranthib@example.com',
+    phone: '0912222222',
+    gender: 'Female',
+    address: '456 Đường Lê Lợi',
+    skills: 'Có kinh nghiệm 3 năm',
+    clubId: '2',
+    joinedDate: '2023-02-20',
+    role: 'Vice Leader',
+    status: 'Active',
+    createdAt: '2023-02-20',
+  },
+  {
+    id: '3',
+    fullName: 'Phạm Văn C',
+    email: 'phamvanc@example.com',
+    phone: '0913333333',
+    gender: 'Male',
+    address: '789 Đường Trần Hưng Đạo',
+    skills: 'Lập trình backend',
+    clubId: '2',
+    joinedDate: '2023-03-10',
+    role: 'Member',
+    status: 'Active',
+    createdAt: '2023-03-10',
+  },
 ];
 
-// Load initial data from localStorage or use default
+
 const loadInitialData = (): IMember[] => {
   const savedData = loadFromStorage<IMember>(STORAGE_KEYS.MEMBERS);
   return savedData || defaultData;
@@ -38,7 +66,7 @@ const loadInitialData = (): IMember[] => {
 
 const initialState: MembersState = {
   list: loadInitialData(),
-  total: 1,
+  total: 3,
   loading: false,
 };
 

@@ -184,7 +184,7 @@
         component: './QuanLyVanBang/ThongTinVanBang',
       },
       {
-        path: '/quan-ly-van-bang/tra-cuu', // Đã chuyển vào trong Quản lý
+        path: '/quan-ly-van-bang/tra-cuu',
         name: 'Tra cứu văn bằng',
         component: './TraCuuVanBang',
       },
