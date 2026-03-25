@@ -1,9 +1,4 @@
-﻿import component from "@/locales/en-US/component";
-import route from "mock/route";
-import path from "path";
-import { Redirect } from "react-router";
-
-export default [
+﻿export default [
 	{
 		path: '/user',
 		layout: false,
@@ -132,6 +127,38 @@ export default [
     ],
 },
 {
+    path: '/clb-va-dang-ky',
+    name: 'Hệ thống CLB',
+    icon: 'TeamOutlined',
+    routes: [
+        {
+            path: '/clb-va-dang-ky',
+            redirect: '/clb-va-dang-ky/clb',
+        },
+        {
+            name: 'Quản lý Câu lạc bộ',
+            path: '/clb-va-dang-ky/clb',
+            component: './CLB',
+        },
+        {
+            name: 'Quản lý Đơn đăng ký',
+            path: '/clb-va-dang-ky/dang-ky',
+            component: './Registration',
+        },
+        {
+            name: 'Quản lý Thành viên',
+            path: '/clb-va-dang-ky/thanh-vien',
+            component: './MemberManagement',
+        },
+        {
+            name: 'Thống kê & Báo cáo',
+            path: '/clb-va-dang-ky/thong-ke',
+            component: './Dashboard',
+            hideInMenu: false,
+        },
+    ],
+},
+{
     path: '/quan-ly-van-bang',
     name: 'Quản lý văn bằng',
     icon: 'book',
@@ -163,55 +190,9 @@ export default [
       },
     ],
   },
-
-
-
-
-
-
-
-
-
-
-
-	// DANH MUC HE THONG
-	// {
-	// 	name: 'DanhMuc',
-	// 	path: '/danh-muc',
-	// 	icon: 'copy',
-	// 	routes: [
-	// 		{
-	// 			name: 'ChucVu',
-	// 			path: 'chuc-vu',
-	// 			component: './DanhMuc/ChucVu',
-	// 		},
-	// 	],
-	// },
-
-	{
-		path: '/notification',
-		routes: [
-			{
-				path: './subscribe',
-				exact: true,
-				component: './ThongBao/Subscribe',
-			},
-			{
-				path: './check',
-				exact: true,
-				component: './ThongBao/Check',
-			},
-			{
-				path: './',
-				exact: true,
-				component: './ThongBao/NotifOneSignal',
-			},
-		],
-		layout: false,
-		hideInMenu: true,
-	},
 	{
 		path: '/',
+		redirect: '/dashboard',
 	},
 	{
 		path: '/403',
