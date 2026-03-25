@@ -1,9 +1,4 @@
-﻿import component from "@/locales/en-US/component";
-import route from "mock/route";
-import path from "path";
-import { Redirect } from "react-router";
-
-export default [
+﻿export default [
 	{
 		path: '/user',
 		layout: false,
@@ -45,19 +40,19 @@ export default [
 		path: '/doan-so',
 		name: 'GuestNumber',
 		component: './GuestNumber',
-		icon: 'AndroidOutlined'
+		icon: 'AndroidOutlined',
 	},
 	{
 		path: '/keo-bua-bao',
 		name: 'KeoBuabao',
 		component: './KeoBuaBao',
-		icon: 'ScissorOutlined'
+		icon: 'ScissorOutlined',
 	},
 	{
 		path: '/todolist',
 		name: 'Todolist',
 		component: './Todolist',
-		icon: 'UnorderedListOutlined'
+		icon: 'UnorderedListOutlined',
 	},
 	// {
 	// 	path: '/Game',
@@ -103,20 +98,21 @@ export default [
             path: '/dat-lich',
             redirect: '/dat-lich/lich-hen', 
         },
-        {
-            name: 'Thống kê & Báo cáo',
-            path: '/dat-lich/thong-ke',
-            // component: './Dashboard/ThongKePage',
-        },
+        
+		{
+		name: 'Thống kê & Báo cáo',
+		path: '/dat-lich/thong-ke',
+		component: './HeThongDatLich/pages/DashBoard/ThongKePage', 
+		},
         {
             name: 'Quản lý Dịch vụ',
             path: '/dat-lich/dich-vu',
-            // component: './Catalog/DichVuPage',
+            component: './Nhanvienvadichvu/DichVuPage',
         },
         {
             name: 'Quản lý Nhân viên',
             path: '/dat-lich/nhan-vien',
-            // component: './Catalog/NhanVienPage',
+            component: './Nhanvienvadichvu/NhanVienPage',
         },
 {
     name: 'Quản lý Lịch hẹn',
@@ -126,59 +122,77 @@ export default [
         {
             name: 'Đánh giá & Phản hồi',
             path: '/dat-lich/danh-gia',
-            // component: './Reviews/DanhGiaPage',
+            component: './Review/DanhGiaPage',
         },
     ],
 },
-
-
-
-
-
-
-
-
-
-
-
-	// DANH MUC HE THONG
-	// {
-	// 	name: 'DanhMuc',
-	// 	path: '/danh-muc',
-	// 	icon: 'copy',
-	// 	routes: [
-	// 		{
-	// 			name: 'ChucVu',
-	// 			path: 'chuc-vu',
-	// 			component: './DanhMuc/ChucVu',
-	// 		},
-	// 	],
-	// },
-
-	{
-		path: '/notification',
-		routes: [
-			{
-				path: './subscribe',
-				exact: true,
-				component: './ThongBao/Subscribe',
-			},
-			{
-				path: './check',
-				exact: true,
-				component: './ThongBao/Check',
-			},
-			{
-				path: './',
-				exact: true,
-				component: './ThongBao/NotifOneSignal',
-			},
-		],
-		layout: false,
-		hideInMenu: true,
-	},
+{
+    path: '/clb-va-dang-ky',
+    name: 'Hệ thống CLB',
+    icon: 'TeamOutlined',
+    routes: [
+        {
+            path: '/clb-va-dang-ky',
+            redirect: '/clb-va-dang-ky/clb',
+        },
+        {
+            name: 'Quản lý Câu lạc bộ',
+            path: '/clb-va-dang-ky/clb',
+            component: './CLB',
+        },
+        {
+            name: 'Quản lý Đơn đăng ký',
+            path: '/clb-va-dang-ky/dang-ky',
+            component: './Registration',
+        },
+        {
+            name: 'Quản lý Thành viên',
+            path: '/clb-va-dang-ky/thanh-vien',
+            component: './MemberManagement',
+        },
+        {
+            name: 'Thống kê & Báo cáo',
+            path: '/clb-va-dang-ky/thong-ke',
+            component: './Dashboard',
+            hideInMenu: false,
+        },
+    ],
+},
+{
+    path: '/quan-ly-van-bang',
+    name: 'Quản lý văn bằng',
+    icon: 'book',
+    routes: [
+      {
+        path: '/quan-ly-van-bang/so-van-bang',
+        name: 'Sổ văn bằng',
+        component: './QuanLyVanBang/SoVanBang',
+      },
+      {
+        path: '/quan-ly-van-bang/quyet-dinh',
+        name: 'Quyết định tốt nghiệp',
+        component: './QuanLyVanBang/QuyetDinh',
+      },
+      {
+        path: '/quan-ly-van-bang/cau-hinh-bieu-mau',
+        name: 'Cấu hình biểu mẫu',
+        component: './QuanLyVanBang/CauHinhBieuMau',
+      },
+      {
+        path: '/quan-ly-van-bang/thong-tin',
+        name: 'Thông tin văn bằng',
+        component: './QuanLyVanBang/ThongTinVanBang',
+      },
+      {
+        path: '/quan-ly-van-bang/tra-cuu', // Đã chuyển vào trong Quản lý
+        name: 'Tra cứu văn bằng',
+        component: './TraCuuVanBang',
+      },
+    ],
+  },
 	{
 		path: '/',
+		redirect: '/dashboard',
 	},
 	{
 		path: '/403',

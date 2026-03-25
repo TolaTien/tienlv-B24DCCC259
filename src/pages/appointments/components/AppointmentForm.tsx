@@ -2,24 +2,23 @@ import { Button, Form, Input, DatePicker, Select } from "antd";
 import { useModel } from "umi";
 
 export default function AppointmentForm({ close }: any) {
-
   const { addAppointment } = useModel("appointment");
+  const { nhanVienList } = useModel("nhanVienModel");
+  const { dichVuList } = useModel("dichVuModel");
 
   const onFinish = (values: any) => {
-
     addAppointment({
       customer: values.customer,
-      employee: values.employee,
+      employeeId: values.employeeId, // Lưu ID nhân viên
+      serviceId: values.serviceId,   // Lưu ID dịch vụ
       date: values.date.format("YYYY-MM-DD"),
       time: values.time,
     });
-
     close();
   };
 
   return (
     <Form layout="vertical" onFinish={onFinish}>
-
       <Form.Item
         label="Tên khách hàng"
         name="customer"
@@ -30,14 +29,27 @@ export default function AppointmentForm({ close }: any) {
 
       <Form.Item
         label="Nhân viên"
-        name="employee"
+        name="employeeId"
         rules={[{ required: true }]}
       >
         <Select
-          options={[
-            { label: "Nhân viên A", value: "A" },
-            { label: "Nhân viên B", value: "B" },
-          ]}
+          options={(nhanVienList || []).map((nv: any) => ({
+            label: nv.hoTen,
+            value: nv.id,
+          }))}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Dịch vụ"
+        name="serviceId"
+        rules={[{ required: true }]}
+      >
+        <Select
+          options={(dichVuList || []).map((dv: any) => ({
+            label: `${dv.tenDichVu} - ${dv.gia.toLocaleString('vi-VN')}đ`,
+            value: dv.id,
+          }))}
         />
       </Form.Item>
 
@@ -46,7 +58,7 @@ export default function AppointmentForm({ close }: any) {
         name="date"
         rules={[{ required: true }]}
       >
-        <DatePicker />
+        <DatePicker style={{ width: "100%" }} />
       </Form.Item>
 
       <Form.Item
@@ -67,7 +79,6 @@ export default function AppointmentForm({ close }: any) {
       <Button type="primary" htmlType="submit">
         Đặt lịch
       </Button>
-
     </Form>
   );
 }

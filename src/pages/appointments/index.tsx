@@ -4,9 +4,9 @@ import { useState } from "react";
 import AppointmentForm from "./components/AppointmentForm";
 
 export default function AppointmentPage() {
-
-  const { appointments, updateStatus, deleteAppointment } =
-    useModel("appointment");
+  const { appointments, updateStatus, deleteAppointment } = useModel("appointment");
+  const { nhanVienList } = useModel("nhanVienModel");
+  const { dichVuList } = useModel("dichVuModel");
 
   const [open, setOpen] = useState(false);
 
@@ -17,7 +17,19 @@ export default function AppointmentPage() {
     },
     {
       title: "Nhân viên",
-      dataIndex: "employee",
+      dataIndex: "employeeId",
+      render: (id: string) => {
+        const nv = (nhanVienList || []).find((n: any) => n.id === id);
+        return nv ? nv.hoTen : <Tag color="default">Không rõ</Tag>;
+      },
+    },
+    {
+      title: "Dịch vụ",
+      dataIndex: "serviceId",
+      render: (id: string) => {
+        const dv = (dichVuList || []).find((d: any) => d.id === id);
+        return dv ? dv.tenDichVu : <Tag color="default">Không rõ</Tag>;
+      },
     },
     {
       title: "Ngày",
@@ -30,13 +42,10 @@ export default function AppointmentPage() {
     {
       title: "Trạng thái",
       render: (record: any) => {
-
         let color = "orange";
-
         if (record.status === "Xác nhận") color = "blue";
         if (record.status === "Hoàn thành") color = "green";
         if (record.status === "Hủy") color = "red";
-
         return <Tag color={color}>{record.status}</Tag>;
       },
     },
@@ -44,30 +53,15 @@ export default function AppointmentPage() {
       title: "Hành động",
       render: (record: any) => (
         <Space>
-
-          <Button
-            onClick={() =>
-              updateStatus(record.id, "Xác nhận")
-            }
-          >
+          <Button onClick={() => updateStatus(record.id, "Xác nhận")}>
             Xác nhận
           </Button>
-
-          <Button
-            onClick={() =>
-              updateStatus(record.id, "Hoàn thành")
-            }
-          >
+          <Button onClick={() => updateStatus(record.id, "Hoàn thành")}>
             Hoàn thành
           </Button>
-
-          <Button
-            danger
-            onClick={() => deleteAppointment(record.id)}
-          >
+          <Button danger onClick={() => deleteAppointment(record.id)}>
             Xóa
           </Button>
-
         </Space>
       ),
     },
@@ -75,28 +69,24 @@ export default function AppointmentPage() {
 
   return (
     <div>
-
-      <Button
-        type="primary"
-        onClick={() => setOpen(true)}
-      >
+      <Button type="primary" onClick={() => setOpen(true)} style={{ marginBottom: 16 }}>
         Đặt lịch
       </Button>
 
-      <Table
-        rowKey="id"
-        columns={columns}
-        dataSource={appointments}
+      <Table 
+        rowKey="id" 
+        columns={columns} 
+        dataSource={appointments} 
       />
 
       <Modal
-        visible ={open}
+        visible={open}
         footer={null}
         onCancel={() => setOpen(false)}
+        destroyOnClose // Reset form khi đóng modal
       >
         <AppointmentForm close={() => setOpen(false)} />
       </Modal>
-
     </div>
   );
 }
