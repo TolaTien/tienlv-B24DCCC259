@@ -6,6 +6,8 @@ const STORAGE_KEYS = {
   CLUBS: 'clb:list',
   REGISTRATIONS: 'registration:list',
   MEMBERS: 'members:list',
+  TRAVEL_DESTINATIONS: 'travel:destinations',
+  TRAVEL_SCHEDULES: 'travel:schedules',
 };
 
 export interface StorageData<T> {
