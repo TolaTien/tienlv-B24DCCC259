@@ -54,6 +54,32 @@
 		component: './Todolist',
 		icon: 'UnorderedListOutlined',
 	},
+  {
+    path: '/travel',
+    name: 'Kế hoạch du lịch',
+    icon: 'GlobalOutlined',
+    routes: [
+      {
+        path: '/travel',
+        redirect: '/travel/explore',
+      },
+      {
+        path: '/travel/explore',
+        name: 'Khám phá điểm đến',
+        component: './Travel/Explore',
+      },
+      {
+        path: '/travel/schedule',
+        name: 'Tạo lịch trình',
+        component: './Travel/Schedule',
+      },
+      {
+        path: '/travel/admin',
+        name: 'Quản trị & Thống kê',
+        component: './Travel/Admin',
+      },
+    ],
+  },
 	// {
 	// 	path: '/Game',
 	// 	name: 'Game',
@@ -184,7 +210,7 @@
         component: './QuanLyVanBang/ThongTinVanBang',
       },
       {
-        path: '/quan-ly-van-bang/tra-cuu', // Đã chuyển vào trong Quản lý
+        path: '/quan-ly-van-bang/tra-cuu',
         name: 'Tra cứu văn bằng',
         component: './TraCuuVanBang',
       },

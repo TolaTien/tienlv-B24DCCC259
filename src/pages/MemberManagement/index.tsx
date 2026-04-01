@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'umi';
 import type { Dispatch } from 'umi';
-import { Button, Table, Space, Popconfirm, message, Tag } from 'antd';
+import { Button, Table, Space, Popconfirm, message, Tag, Select } from 'antd';
 import { DeleteOutlined, EditOutlined, UndoOutlined } from '@ant-design/icons';
 import type { IMember, IClub } from '@/types';
 import MemberTransferModal from '@/components/Modals/MemberTransferModal';
+import MemberEditModal from '@/components/Modals/MemberEditModal';
 
 interface MemberManagementPageProps {
   members: any;
@@ -23,6 +24,9 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [transferModalVisible, setTransferModalVisible] = useState(false);
   const [selectedClubIdForTransfer, setSelectedClubIdForTransfer] = useState<string>('');
+  const [filterClubId, setFilterClubId] = useState<string>('');
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [editingMember, setEditingMember] = useState<IMember | undefined>();
 
   const handleDeleteMember = (id: string) => {
     dispatch({
@@ -38,7 +42,6 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
       return;
     }
 
-    // Get clubId from first selected member (assuming all selected members are from same club)
     const firstMemberId = selectedRowKeys[0];
     const firstMember = list.find((m: IMember) => m.id === firstMemberId);
     setSelectedClubIdForTransfer(firstMember?.clubId || '');
@@ -61,31 +64,52 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
     setTransferModalVisible(false);
   };
 
+  const handleEditMember = (member: IMember) => {
+    setEditingMember(member);
+    setEditModalVisible(true);
+  };
+
+  const handleSubmitEditMember = (values: IMember) => {
+    dispatch({
+      type: 'members/updateMember',
+      payload: values,
+    });
+    message.success('Cập nhật thành viên thành công');
+    setEditModalVisible(false);
+    setEditingMember(undefined);
+  };
+
+  // Filter members by club
+  const filteredList = filterClubId
+    ? list.filter((m: IMember) => m.clubId === filterClubId)
+    : list;
+
   const columns = [
     {
       title: 'Họ tên',
       dataIndex: 'fullName',
       key: 'fullName',
-      width: 120,
+      width: 130,
       sorter: (a: IMember, b: IMember) => a.fullName.localeCompare(b.fullName),
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      width: 150,
+      width: 130,
+      ellipsis: true,
     },
     {
       title: 'SĐT',
       dataIndex: 'phone',
       key: 'phone',
-      width: 110,
+      width: 100,
     },
     {
       title: 'Câu lạc bộ',
       dataIndex: 'clubId',
       key: 'clubId',
-      width: 150,
+      width: 140,
       render: (clubId: string) => {
         const club = clubs.find((c: IClub) => c.id === clubId);
         return <Tag color='blue'>{club?.name || '-'}</Tag>;
@@ -95,27 +119,21 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
       title: 'Sở trường',
       dataIndex: 'skills',
       key: 'skills',
-      width: 150,
+      width: 130,
       ellipsis: true,
-    },
-    {
-      title: 'Ngày tham gia',
-      dataIndex: 'joinedDate',
-      key: 'joinedDate',
-      width: 120,
     },
     {
       title: 'Chức vụ',
       dataIndex: 'role',
       key: 'role',
-      width: 100,
+      width: 90,
       render: (role: string) => role || 'Thành viên',
     },
     {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
-      width: 100,
+      width: 90,
       render: (status: string) => (
         <Tag color={status === 'Active' ? 'green' : 'orange'}>
           {status === 'Active' ? 'Hoạt động' : 'Ngừng'}
@@ -125,14 +143,14 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
     {
       title: 'Thao tác',
       key: 'action',
-      width: 200,
+      width: 160,
       fixed: 'right',
       render: (_: any, record: IMember) => (
         <Space size='small'>
           <Button
             size='small'
             icon={<EditOutlined />}
-            disabled
+            onClick={() => handleEditMember(record)}
           >
             Sửa
           </Button>
@@ -151,18 +169,42 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
     },
   ];
 
-  const hasSelected = selectedRowKeys.length > 0;
-
   return (
     <div style={{ padding: 20 }}>
       <div style={{ marginBottom: 16 }}>
         <Space wrap>
           <span>
-            {hasSelected
-              ? `Đã chọn ${selectedRowKeys.length} thành viên`
+            {filterClubId 
+              ? `Lọc: ${clubs.find((c: IClub) => c.id === filterClubId)?.name || 'Tất cả'} - ${filteredList.length} thành viên`
               : `Tổng: ${list.length} thành viên`}
           </span>
-          {hasSelected && (
+          <Select
+            style={{ width: 200 }}
+            placeholder='Lọc theo Câu lạc bộ'
+            allowClear
+            value={filterClubId || undefined}
+            onChange={(value) => {
+              setFilterClubId(value || '');
+              setSelectedRowKeys([]);
+            }}
+          >
+            {clubs.map((club: IClub) => (
+              <Select.Option key={club.id} value={club.id}>
+                {club.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Space>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <Space wrap>
+          <span>
+            {selectedRowKeys.length > 0
+              ? `Đã chọn ${selectedRowKeys.length} thành viên`
+              : ''}
+          </span>
+          {selectedRowKeys.length > 0 && (
             <Button
               type='primary'
               icon={<UndoOutlined />}
@@ -176,14 +218,14 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
 
       <Table
         columns={columns as any}
-        dataSource={list}
+        dataSource={filteredList}
         rowKey='id'
         rowSelection={{
           selectedRowKeys,
           onChange: setSelectedRowKeys,
         }}
         pagination={{ pageSize: 10 }}
-        scroll={{ x: 1400 }}
+        scroll={{ x: 1500 }}
       />
 
       <MemberTransferModal
@@ -193,6 +235,17 @@ const MemberManagementPage: React.FC<MemberManagementPageProps> = ({
         currentClubId={selectedClubIdForTransfer}
         onConfirm={handleConfirmTransfer}
         onCancel={() => setTransferModalVisible(false)}
+      />
+
+      <MemberEditModal
+        visible={editModalVisible}
+        initialValues={editingMember}
+        clubs={clubs}
+        onSubmit={handleSubmitEditMember}
+        onCancel={() => {
+          setEditModalVisible(false);
+          setEditingMember(undefined);
+        }}
       />
     </div>
   );

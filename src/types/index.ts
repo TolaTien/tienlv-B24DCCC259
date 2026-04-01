@@ -38,6 +38,7 @@ export interface IMember {
   phone: string;
   gender?: 'Male' | 'Female' | 'Other';
   address?: string;
+  avatar?: string;
   skills: string;
   clubId: string;
   joinedDate: string;

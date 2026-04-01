@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import { connect } from 'umi';
 import type { Dispatch } from 'umi';
-import { Button, Table, Space, Popconfirm, Image, message, Modal } from 'antd';
+import { Button, Table, Space, Popconfirm, Image, message, Modal, Avatar, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, TeamOutlined } from '@ant-design/icons';
-import type { IClub } from '@/types';
+import type { IClub, IMember } from '@/types';
 import ClubForm from '@/components/Forms/ClubForm';
+import MemberEditModal from '@/components/Modals/MemberEditModal';
 
 interface CLBPageProps {
   clb: any;
+  members: any;
   dispatch: Dispatch;
 }
 
-const CLBPage: React.FC<CLBPageProps> = ({ clb, dispatch }) => {
+const CLBPage: React.FC<CLBPageProps> = ({ clb, members, dispatch }) => {
   const { list = [] } = clb || {};
+  const { list: membersList = [] } = members || {};
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingClub, setEditingClub] = useState<Partial<IClub> | undefined>();
   const [memberModalVisible, setMemberModalVisible] = useState(false);
   const [selectedClub, setSelectedClub] = useState<IClub | undefined>();
+  const [memberEditModalVisible, setMemberEditModalVisible] = useState(false);
+  const [editingMember, setEditingMember] = useState<IMember | undefined>();
 
   const handleAddClub = () => {
     setEditingClub(undefined);
@@ -58,14 +63,58 @@ const CLBPage: React.FC<CLBPageProps> = ({ clb, dispatch }) => {
     setMemberModalVisible(true);
   };
 
+  const handleEditMember = (member: IMember) => {
+    setEditingMember(member);
+    setMemberEditModalVisible(true);
+  };
+
+  const handleDeleteMember = (memberId: string) => {
+    dispatch({
+      type: 'members/deleteMember',
+      payload: memberId,
+    });
+    message.success('Đã xóa thành viên');
+  };
+
+  const handleSubmitEditMember = (values: IMember) => {
+    dispatch({
+      type: 'members/updateMember',
+      payload: values,
+    });
+    message.success('Cập nhật thành viên thành công');
+    setMemberEditModalVisible(false);
+    setEditingMember(undefined);
+  };
+
+  // Get members of selected club
+  const clubMembers = selectedClub
+    ? membersList.filter((m: IMember) => m.clubId === selectedClub.id)
+    : [];
+
   const columns = [
     {
       title: 'Ảnh',
       dataIndex: 'avatar',
       key: 'avatar',
       width: 80,
-      render: (url: string) => (
-        url ? <Image src={url} width={50} preview /> : <span>-</span>
+      render: (url: string, record: IClub) => (
+        <Tooltip title={record.name}>
+          {url ? (
+            <Image src={url} width={50} height={50} preview style={{ borderRadius: 4 }} />
+          ) : (
+            <Avatar
+              size={50}
+              style={{
+                backgroundColor: '#1890ff',
+                color: 'white',
+                fontSize: 18,
+                fontWeight: 'bold',
+              }}
+            >
+              {record.name.charAt(0).toUpperCase()}
+            </Avatar>
+          )}
+        </Tooltip>
       ),
     },
     {
@@ -170,12 +219,99 @@ const CLBPage: React.FC<CLBPageProps> = ({ clb, dispatch }) => {
         visible={memberModalVisible}
         onCancel={() => setMemberModalVisible(false)}
         footer={null}
-        width={800}
+        width={1000}
       >
-        <p>Tính năng xem danh sách thành viên sẽ được cập nhật trong Member Management page</p>
+        {clubMembers.length > 0 ? (
+          <Table
+            dataSource={clubMembers}
+            rowKey='id'
+            size='small'
+            pagination={{ pageSize: 8 }}
+            columns={[
+              {
+                title: 'Họ tên',
+                dataIndex: 'fullName',
+                key: 'fullName',
+                width: 120,
+              },
+              {
+                title: 'Email',
+                dataIndex: 'email',
+                key: 'email',
+                width: 130,
+                ellipsis: true,
+              },
+              {
+                title: 'SĐT',
+                dataIndex: 'phone',
+                key: 'phone',
+                width: 100,
+              },
+              {
+                title: 'Chức vụ',
+                dataIndex: 'role',
+                key: 'role',
+                width: 100,
+                render: (role: string) => role || 'Thành viên',
+              },
+              {
+                title: 'Trạng thái',
+                dataIndex: 'status',
+                key: 'status',
+                width: 90,
+                render: (status: string) => (
+                  <span style={{ color: status === 'Active' ? 'green' : 'orange' }}>
+                    {status === 'Active' ? 'Hoạt động' : 'Ngừng'}
+                  </span>
+                ),
+              },
+              {
+                title: 'Thao tác',
+                key: 'action',
+                width: 130,
+                render: (_: any, record: IMember) => (
+                  <Space size='small'>
+                    <Button
+                      size='small'
+                      icon={<EditOutlined />}
+                      onClick={() => handleEditMember(record)}
+                    >
+                      Sửa
+                    </Button>
+                    <Popconfirm
+                      title='Xóa thành viên?'
+                      onConfirm={() => handleDeleteMember(record.id)}
+                      okText='Xóa'
+                      cancelText='Hủy'
+                    >
+                      <Button size='small' danger icon={<DeleteOutlined />}>
+                        Xóa
+                      </Button>
+                    </Popconfirm>
+                  </Space>
+                ),
+              },
+            ]}
+          />
+        ) : (
+          <p style={{ textAlign: 'center', padding: '20px' }}>
+            Chưa có thành viên trong câu lạc bộ này
+          </p>
+        )}
       </Modal>
+
+      <MemberEditModal
+        visible={memberEditModalVisible}
+        initialValues={editingMember}
+        clubs={list}
+        onSubmit={handleSubmitEditMember}
+        onCancel={() => {
+          setMemberEditModalVisible(false);
+          setEditingMember(undefined);
+        }}
+      />
     </div>
   );
 };
 
-export default connect(({ clb }: any) => ({ clb }))(CLBPage);
+export default connect(({ clb, members }: any) => ({ clb, members }))(CLBPage);
