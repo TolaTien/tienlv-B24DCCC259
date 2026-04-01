@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"ignoreDeprecations": "6.0",
 		"outDir": "build/dist",
 		"module": "esnext",
 		"target": "esnext",
@@ -9,7 +10,6 @@
 		"jsx": "react-jsx",
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
-		"ignoreDeprecations": "6.0",
 		"moduleResolution": "node",
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitReturns": true,

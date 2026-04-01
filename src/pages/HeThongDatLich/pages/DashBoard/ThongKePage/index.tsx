@@ -15,7 +15,7 @@ const ThongKePage: React.FC = () => {
         {/* Bộ lọc */}
         <Col span={24}>
           <Card size="small" title="Lọc dữ liệu">
-            <RangePicker value={range} onChange={(val) => setRange(val)} format="DD/MM/YYYY" />
+            <RangePicker value={range as any} onChange={(val) => setRange(val as any)} format="DD/MM/YYYY" />
           </Card>
         </Col>
 

@@ -1,40 +1,68 @@
 import { useState, useMemo } from 'react';
+import { useModel } from 'umi';
 import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
 
-const MOCK_DATA = [
-  { id: '1', staff: 'Nguyễn Văn A', service: 'Cắt tóc', price: 150000, date: '2026-03-01', status: 'COMPLETED' },
-  { id: '2', staff: 'Trần Thị B', service: 'Spa', price: 500000, date: '2026-03-05', status: 'COMPLETED' },
-  { id: '3', staff: 'Lê Văn C', service: 'Khám bệnh', price: 300000, date: '2026-03-08', status: 'COMPLETED' },
-  { id: '4', staff: 'Nguyễn Văn A', service: 'Gội đầu', price: 100000, date: '2026-03-10', status: 'COMPLETED' },
-];
+dayjs.extend(isBetween);
 
 export const useStats = () => {
-  const [range, setRange] = useState<any>([dayjs().startOf('month'), dayjs().endOf('month')]);
+  const [range, setRange] = useState<[dayjs.Dayjs, dayjs.Dayjs] | null>(null);
+
+  // Kéo dữ liệu từ các model của hệ thống
+  const { appointments } = useModel('appointment');
+  const { nhanVienList } = useModel('nhanVienModel');
+  const { dichVuList } = useModel('dichVuModel');
 
   const statsData = useMemo(() => {
-    if (!range || !range[0] || !range[1]) return { filtered: [], total: 0, staffStats: [] };
-
-    const filtered = MOCK_DATA.filter(item => 
-      dayjs(item.date).isAfter(range[0].startOf('day')) &&
-      dayjs(item.date).isBefore(range[1].endOf('day'))
+    // 1. Chỉ lấy những lịch hẹn có trạng thái "Hoàn thành" để tính doanh thu
+    let completedAppointments = (appointments || []).filter(
+      (app: any) => app.status === 'Hoàn thành'
     );
 
-    const total = filtered.reduce((sum, item) => sum + item.price, 0);
+    // 2. Lọc theo khoảng ngày người dùng chọn
+    if (range && range[0] && range[1]) {
+      const startDate = range[0].startOf('day');
+      const endDate = range[1].endOf('day');
+      
+      completedAppointments = completedAppointments.filter((app: any) => {
+        return dayjs(app.date).isBetween(startDate, endDate, null, '[]');
+      });
+    }
 
-    // Ép kiểu Record<string, number> để TypeScript biết giá trị trả về là con số
-    const staffMap = filtered.reduce((acc: Record<string, number>, curr) => {
-      acc[curr.staff] = (acc[curr.staff] || 0) + curr.price;
-      return acc;
-    }, {});
+    // 3. Khớp ID để lấy tên nhân viên và giá tiền dịch vụ
+    const mappedData = completedAppointments.map((app: any) => {
+      const nhanVien = (nhanVienList || []).find((nv: any) => nv.id === app.employeeId);
+      const dichVu = (dichVuList || []).find((dv: any) => dv.id === app.serviceId);
 
-    // Chuyển sang mảng chuẩn DataItem[]
-    const staffStats = Object.entries(staffMap).map(([name, value]) => ({
+      return {
+        id: app.id,
+        date: dayjs(app.date).format('DD/MM/YYYY'),
+        staff: nhanVien ? nhanVien.hoTen : 'Nhân viên đã xóa',
+        service: dichVu ? dichVu.tenDichVu : 'Dịch vụ đã xóa',
+        price: dichVu ? dichVu.gia : 0,
+      };
+    });
+
+    // 4. Tính tổng doanh thu thực tế
+    const total = mappedData.reduce((sum, item) => sum + item.price, 0);
+
+    // 5. Nhóm doanh thu theo tên nhân viên để hiển thị lên BarChart
+    const staffMap: Record<string, number> = {};
+    mappedData.forEach((item) => {
+      staffMap[item.staff] = (staffMap[item.staff] || 0) + item.price;
+    });
+
+    const staffStats = Object.keys(staffMap).map((name) => ({
       name,
-      value: Number(value) // Đảm bảo chắc chắn là kiểu number
+      value: staffMap[name],
     }));
 
-    return { filtered, total, staffStats };
-  }, [range]);
+    return {
+      filtered: mappedData, // Bảng chi tiết
+      total,                // Tổng doanh thu
+      staffStats,           // Biểu đồ cột
+    };
+  }, [appointments, nhanVienList, dichVuList, range]);
 
   return { range, setRange, statsData };
 };
