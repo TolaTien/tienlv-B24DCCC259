@@ -1,4 +1,4 @@
-﻿import component from "@/locales/en-US/component";
+import component from "@/locales/en-US/component";
 import route from "mock/route";
 import path from "path";
 import { Redirect } from "react-router";
@@ -21,7 +21,6 @@ export default [
 		],
 	},
 
-	///////////////////////////////////
 	// DEFAULT MENU
 	{
 		path: '/dashboard',
@@ -45,19 +44,25 @@ export default [
 		path: '/doan-so',
 		name: 'GuestNumber',
 		component: './GuestNumber',
-		icon: 'AndroidOutlined'
+		icon: 'AndroidOutlined',
 	},
 	{
 		path: '/keo-bua-bao',
 		name: 'KeoBuabao',
 		component: './KeoBuaBao',
-		icon: 'ScissorOutlined'
+		icon: 'ScissorOutlined',
 	},
 	{
 		path: '/todolist',
 		name: 'Todolist',
 		component: './Todolist',
-		icon: 'UnorderedListOutlined'
+		icon: 'UnorderedListOutlined',
+	},
+	{
+		path: '/people24',
+		name: 'People24',
+		component: './People24',
+		icon: 'UserOutlined',
 	},
 	// {
 	// 	path: '/Game',
@@ -94,6 +99,7 @@ export default [
             },
         ],
     },
+
 {
     name: 'Hệ thống Đặt lịch',
     path: '/dat-lich',
@@ -132,15 +138,64 @@ export default [
     ],
 },
 
+{
+    name: 'Quản lý Câu lạc bộ',
+    path: '/quan-ly-clb',
+    icon: 'TeamOutlined',
+    routes: [
+		{
+			path: '/quan-ly-clb',
+			redirect: '/quan-ly-clb/danh-sach',
+		},
+		{
+			name: 'Thống kê & Báo cáo',
+			path: '/quan-ly-clb/thong-ke',
+			component: './QuanLyCauLacBo/ThongKePage',
+		},
+		{
+			name: 'Danh sách CLB',
+			path: '/quan-ly-clb/danh-sach',
+			component: './QuanLyCauLacBo/ClubPage',
+		},
+		{
+			name: 'Quản lý Đơn đăng ký',
+			path: '/quan-ly-clb/don-dang-ky',
+			component: './QuanLyCauLacBo/RegistrationPage',
+		},
+		{
+			name: 'Danh sách Thành viên',
+			path: '/quan-ly-clb/thanh-vien',
+			component: './QuanLyCauLacBo/MemberPage',
+		},
+		],
+	},
 
-
-
-
-
-
-
-
-
+	{
+		name: 'Lập kế hoạch du lịch',
+		path: '/lap-ke-hoach-du-lich',
+		icon: 'RocketOutlined',
+		routes: [
+			{
+				path: '/lap-ke-hoach-du-lich',
+				redirect: '/lap-ke-hoach-du-lich/kham-pha',
+			},
+			{
+				name: 'Khám phá điểm đến',
+				path: '/lap-ke-hoach-du-lich/kham-pha',
+				component: './LapKeHoachDuLich/Home',
+			},
+			{
+				name: 'Lập lịch trình',
+				path: '/lap-ke-hoach-du-lich/lich-trinh',
+				component: './LapKeHoachDuLich/Planner',
+			},
+			{
+				name: 'Quản trị điểm đến',
+				path: '/lap-ke-hoach-du-lich/admin',
+				component: './LapKeHoachDuLich/Admin',
+			},
+		],
+	},
 
 	// DANH MUC HE THONG
 	// {
@@ -160,17 +215,17 @@ export default [
 		path: '/notification',
 		routes: [
 			{
-				path: './subscribe',
+				path: '/notification/subscribe',
 				exact: true,
 				component: './ThongBao/Subscribe',
 			},
 			{
-				path: './check',
+				path: '/notification/check',
 				exact: true,
 				component: './ThongBao/Check',
 			},
 			{
-				path: './',
+				path: '/notification',
 				exact: true,
 				component: './ThongBao/NotifOneSignal',
 			},
@@ -178,8 +233,10 @@ export default [
 		layout: false,
 		hideInMenu: true,
 	},
+
 	{
 		path: '/',
+		redirect: '/dashboard',
 	},
 	{
 		path: '/403',

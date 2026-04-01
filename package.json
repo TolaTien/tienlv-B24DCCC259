@@ -53,7 +53,10 @@
   ],
   "dependencies": {
     "@ant-design/icons": "~4.5.0",
-    "@ant-design/pro-layout": "~6.15.3",
+    "@ant-design/pro-card": "^1.20.22",
+    "@ant-design/pro-form": "^1.74.7",
+    "@ant-design/pro-layout": "^6.38.22",
+    "@ant-design/pro-table": "^2.80.8",
     "@monaco-editor/react": "^4.6.0",
     "@sentry/react": "^7.65.0",
     "@tinymce/tinymce-react": "^4.2.0",
