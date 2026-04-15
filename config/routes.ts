@@ -54,6 +54,12 @@
 		component: './Todolist',
 		icon: 'UnorderedListOutlined',
 	},
+	{
+		path: '/group-tasks',
+		name: 'Quản lý Công việc Nhóm',
+		component: './GroupTaskManagement',
+		icon: 'ProjectOutlined',
+	},
   {
     path: '/travel',
     name: 'Kế hoạch du lịch',
