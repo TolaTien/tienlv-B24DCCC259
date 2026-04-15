@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProCard from '@ant-design/pro-card';
-import { Input, Select, Rate, Row, Col, Typography, Empty, Tag } from 'antd';
+import { Input, Select, Rate, Row, Col, Typography, Empty, Tag, Card } from 'antd';
 import { TravelService } from '../service';
 import { TravelPlan } from '../typing';
 
@@ -87,7 +87,7 @@ const TravelHome: React.FC = () => {
           {filteredDestinations.length > 0 ? (
             filteredDestinations.map((dest) => (
               <Col key={dest.id} xs={24} sm={12} md={8} lg={6}>
-                <ProCard
+                <Card
                   hoverable
                   bordered
                   cover={<img alt={dest.name} src={dest.image} style={{ height: 200, objectFit: 'cover' }} />}
@@ -108,8 +108,8 @@ const TravelHome: React.FC = () => {
                     <Text strong style={{ color: '#f5222d', fontSize: 16 }}>
                       {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(dest.price)}
                     </Text>
-                  </div>
-                </ProCard>
+                  </div>``
+                </Card>
               </Col>
             ))
           ) : (

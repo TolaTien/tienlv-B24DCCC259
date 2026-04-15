@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-import component from "@/locales/en-US/component";
+﻿import component from "@/locales/en-US/component";
 import route from "mock/route";
 import path from "path";
 import { Redirect } from "react-router";
 
 export default [
-=======
-﻿export default [
->>>>>>> f20ce78d87911c983c0fd78dc6ffe66c230a00bf
 	{
 		path: '/user',
 		layout: false,
@@ -61,15 +57,12 @@ export default [
 		name: 'Todolist',
 		component: './Todolist',
 		icon: 'UnorderedListOutlined',
-<<<<<<< HEAD
 	},
 	{
 		path: '/people24',
 		name: 'People24',
 		component: './People24',
 		icon: 'UserOutlined',
-=======
->>>>>>> f20ce78d87911c983c0fd78dc6ffe66c230a00bf
 	},
   {
     path: '/travel',
@@ -142,11 +135,7 @@ export default [
             path: '/dat-lich',
             redirect: '/dat-lich/lich-hen', 
         },
-<<<<<<< HEAD
         // config/routes.ts
-=======
-        
->>>>>>> f20ce78d87911c983c0fd78dc6ffe66c230a00bf
 		{
 		name: 'Thống kê & Báo cáo',
 		path: '/dat-lich/thong-ke',
@@ -174,7 +163,6 @@ export default [
         },
     ],
 },
-<<<<<<< HEAD
 
 {
     name: 'Quản lý Câu lạc bộ',
@@ -250,6 +238,13 @@ export default [
 	// },
 
 	{
+		name: 'Quản lý Công việc Nhóm',
+		path: '/group-task',
+		icon: 'CheckSquareOutlined',
+		component: './GroupTask',
+	},
+
+	{
 		path: '/notification',
 		routes: [
 			{
@@ -272,72 +267,6 @@ export default [
 		hideInMenu: true,
 	},
 
-=======
-{
-    path: '/clb-va-dang-ky',
-    name: 'Hệ thống CLB',
-    icon: 'TeamOutlined',
-    routes: [
-        {
-            path: '/clb-va-dang-ky',
-            redirect: '/clb-va-dang-ky/clb',
-        },
-        {
-            name: 'Quản lý Câu lạc bộ',
-            path: '/clb-va-dang-ky/clb',
-            component: './CLB',
-        },
-        {
-            name: 'Quản lý Đơn đăng ký',
-            path: '/clb-va-dang-ky/dang-ky',
-            component: './Registration',
-        },
-        {
-            name: 'Quản lý Thành viên',
-            path: '/clb-va-dang-ky/thanh-vien',
-            component: './MemberManagement',
-        },
-        {
-            name: 'Thống kê & Báo cáo',
-            path: '/clb-va-dang-ky/thong-ke',
-            component: './Dashboard',
-            hideInMenu: false,
-        },
-    ],
-},
-{
-    path: '/quan-ly-van-bang',
-    name: 'Quản lý văn bằng',
-    icon: 'book',
-    routes: [
-      {
-        path: '/quan-ly-van-bang/so-van-bang',
-        name: 'Sổ văn bằng',
-        component: './QuanLyVanBang/SoVanBang',
-      },
-      {
-        path: '/quan-ly-van-bang/quyet-dinh',
-        name: 'Quyết định tốt nghiệp',
-        component: './QuanLyVanBang/QuyetDinh',
-      },
-      {
-        path: '/quan-ly-van-bang/cau-hinh-bieu-mau',
-        name: 'Cấu hình biểu mẫu',
-        component: './QuanLyVanBang/CauHinhBieuMau',
-      },
-      {
-        path: '/quan-ly-van-bang/thong-tin',
-        name: 'Thông tin văn bằng',
-        component: './QuanLyVanBang/ThongTinVanBang',
-      },
-      {
-        path: '/quan-ly-van-bang/tra-cuu',
-        name: 'Tra cứu văn bằng',
-        component: './TraCuuVanBang',
-      },
-    ],
-  },
->>>>>>> f20ce78d87911c983c0fd78dc6ffe66c230a00bf
 	{
 		path: '/',
 		redirect: '/dashboard',

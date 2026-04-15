@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import { connect } from 'umi';
-import type { Dispatch } from 'umi';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Table, Space, Popconfirm, Image, message, Modal, Avatar, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, TeamOutlined } from '@ant-design/icons';
 import type { IClub, IMember } from '@/types';
 import ClubForm from '@/components/Forms/ClubForm';
 import MemberEditModal from '@/components/Modals/MemberEditModal';
 
-interface CLBPageProps {
-  clb: any;
-  members: any;
-  dispatch: Dispatch;
-}
-
-const CLBPage: React.FC<CLBPageProps> = ({ clb, members, dispatch }) => {
+const CLBPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const clb = useSelector((state: any) => state.clb);
+  const members = useSelector((state: any) => state.members);
   const { list = [] } = clb || {};
   const { list: membersList = [] } = members || {};
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -314,4 +310,4 @@ const CLBPage: React.FC<CLBPageProps> = ({ clb, members, dispatch }) => {
   );
 };
 
-export default connect(({ clb, members }: any) => ({ clb, members }))(CLBPage);
+export default CLBPage;
