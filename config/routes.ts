@@ -37,6 +37,12 @@
 		icon: 'ArrowsAltOutlined',
 	},
 	{
+		path: '/quan-ly-nhan-vien',
+		name: 'Quản lý Nhân viên',
+		component: './QuanLyNhanVien',
+		icon: 'TeamOutlined',
+	},
+	{
 		path: '/doan-so',
 		name: 'GuestNumber',
 		component: './GuestNumber',
