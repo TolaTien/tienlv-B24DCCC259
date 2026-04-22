@@ -68,12 +68,12 @@ const QuanLyDonHang = () => {
 		setKeyword(localKeyword);
 	};
 
-	const handleStatusFilterChange = (value: EOrderStatus | undefined) => {
-		setStatusFilter(value);
+	const handleStatusFilterChange = (value: any) => {
+		setStatusFilter(value === '' ? undefined : value);
 	};
 
-	const handleSortChange = (value: 'date' | 'total' | undefined) => {
-		setSortBy(value);
+	const handleSortChange = (value: any) => {
+		setSortBy(value === '' ? undefined : value);
 	};
 
 	const handleSortOrderChange = (value: 'asc' | 'desc') => {
@@ -232,10 +232,10 @@ const QuanLyDonHang = () => {
 							placeholder='Lọc theo trạng thái'
 							allowClear
 							style={{ width: '100%' }}
-							value={statusFilter}
+							value={statusFilter || ''}
 							onChange={handleStatusFilterChange}
 							options={[
-								{ label: 'Tất cả', value: undefined },
+								{ label: 'Tất cả', value: '' },
 								...Object.entries(OrderStatusLabels).map(([value, label]) => ({
 									label,
 									value,
@@ -248,10 +248,10 @@ const QuanLyDonHang = () => {
 							placeholder='Sắp xếp theo'
 							allowClear
 							style={{ width: '100%' }}
-							value={sortBy}
+							value={sortBy || ''}
 							onChange={handleSortChange}
 							options={[
-								{ label: 'Tất cả', value: undefined },
+								{ label: 'Tất cả', value: '' },
 								{ label: 'Ngày đặt hàng', value: 'date' },
 								{ label: 'Tổng tiền', value: 'total' },
 							]}
