@@ -245,6 +245,13 @@ export default [
 	},
 
 	{
+		name: 'Quản lý Đơn hàng',
+		path: '/quanly/donhang',
+		icon: 'ShoppingCartOutlined',
+		component: './QuanLyDonHang/Home',
+	},
+
+	{
 		path: '/notification',
 		routes: [
 			{
