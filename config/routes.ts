@@ -222,6 +222,50 @@
       },
     ],
   },
+  {
+    path: '/blog',
+    name: 'Blog cá nhân',
+    icon: 'ReadOutlined',
+    routes: [
+      {
+        path: '/blog',
+        redirect: '/blog/home',
+      },
+      {
+        path: '/blog/home',
+        name: 'Trang chủ',
+        component: './Blog/Home',
+      },
+      {
+        path: '/blog/post/:slug',
+        name: 'Chi tiết bài viết',
+        component: './Blog/Detail',
+        hideInMenu: true,
+      },
+      {
+        path: '/blog/about',
+        name: 'Giới thiệu',
+        component: './Blog/About',
+      },
+      {
+        path: '/blog/admin',
+        name: 'Quản trị Blog',
+        icon: 'SettingOutlined',
+        routes: [
+          {
+            path: '/blog/admin/posts',
+            name: 'Quản lý bài viết',
+            component: './Blog/Admin/Posts',
+          },
+          {
+            path: '/blog/admin/tags',
+            name: 'Quản lý thẻ',
+            component: './Blog/Admin/Tags',
+          },
+        ],
+      },
+    ],
+  },
 	{
 		path: '/',
 		redirect: '/dashboard',
