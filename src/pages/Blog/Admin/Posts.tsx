@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Input, Select, Tag, Popconfirm, message, Modal, Form, DatePicker } from 'antd';
+import { Table, Button, Space, Input, Select, Tag, Popconfirm, message, Modal, Form, DatePicker, Row, Col } from 'antd';
 import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { queryPosts, addPost, updatePost, removePost, queryTags } from '@/services/BlogService';
 import { Post, Tag as TagType } from '@/types/blog';
@@ -122,7 +122,7 @@ const PostAdmin: React.FC = () => {
       key: 'tags',
       render: (tags: string[]) => (
         <>
-          {tags.map((tag) => (
+          {tags?.map((tag) => (
             <Tag key={tag}>{tag}</Tag>
           ))}
         </>
@@ -138,7 +138,7 @@ const PostAdmin: React.FC = () => {
       title: 'Ngày tạo',
       dataIndex: 'publishedAt',
       key: 'publishedAt',
-      render: (date: string) => moment(date).format('DD/MM/YYYY'),
+      render: (date: string) => (date ? moment(date).format('DD/MM/YYYY') : '-'),
     },
     {
       title: 'Thao tác',

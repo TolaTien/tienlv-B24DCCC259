@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Tag, Space, Button, Divider, Row, Col, Card, List, Breadcrumb, Skeleton } from 'antd';
+import { Typography, Tag, Space, Button, Divider, Card, List, Breadcrumb, Skeleton } from 'antd';
 import { ArrowLeftOutlined, ClockCircleOutlined, UserOutlined, EyeOutlined, TagOutlined } from '@ant-design/icons';
 import { getPost, queryPosts } from '@/services/BlogService';
 import { Post } from '@/types/blog';
 import { useParams, useHistory, Link } from 'umi';
 import moment from 'moment';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title } = Typography;
 
 const PostDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();

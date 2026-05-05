@@ -3,7 +3,7 @@ import { Card, List, Input, Tag, Row, Col, Typography, Space, Pagination } from 
 import { SearchOutlined, ClockCircleOutlined, UserOutlined, EyeOutlined } from '@ant-design/icons';
 import { queryPosts, queryTags } from '@/services/BlogService';
 import { Post, Tag as TagType } from '@/types/blog';
-import { useHistory, useLocation } from 'umi';
+import { useHistory } from 'umi';
 import debounce from 'lodash/debounce';
 import moment from 'moment';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Avatar, Typography, Space, Divider, Tag, Row, Col, Button } from 'antd';
-import { GithubOutlined, FacebookOutlined, TwitterOutlined, LinkedinOutlined, MailOutlined } from '@ant-design/icons';
+import { GithubOutlined, FacebookOutlined, LinkedinOutlined, MailOutlined } from '@ant-design/icons';
 
 const { Title, Paragraph, Text } = Typography;
 
