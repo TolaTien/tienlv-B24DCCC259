@@ -89,7 +89,7 @@ const BlogHome: React.FC = () => {
                 onChange={() => handleTagClick(tag.name)}
                 style={{ fontSize: '14px', padding: '4px 12px' }}
               >
-                {tag.name} ({tag.count})
+                {tag.name} ({tag.count ?? 0})
               </Tag.CheckableTag>
             ))}
           </Space>

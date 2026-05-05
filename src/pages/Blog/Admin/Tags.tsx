@@ -74,7 +74,7 @@ const TagAdmin: React.FC = () => {
       title: 'Số bài viết',
       dataIndex: 'count',
       key: 'count',
-      render: (count: number) => count || 0,
+      render: (count?: number) => count ?? 0,
     },
     {
       title: 'Thao tác',

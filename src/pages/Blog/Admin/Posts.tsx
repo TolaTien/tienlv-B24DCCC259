@@ -120,9 +120,9 @@ const PostAdmin: React.FC = () => {
       title: 'Thẻ',
       dataIndex: 'tags',
       key: 'tags',
-      render: (tags: string[]) => (
+      render: (postTags: string[]) => (
         <>
-          {tags?.map((tag) => (
+          {postTags?.map((tag) => (
             <Tag key={tag}>{tag}</Tag>
           ))}
         </>
